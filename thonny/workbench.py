@@ -99,6 +99,7 @@ from thonny.ui_utils import (
     sequence_to_accelerator,
     set_windows_titlebar_darkness,
     shift_is_pressed,
+    get_tk_version_str,
 )
 
 VIEW_LOCATION_CODES = ["nw", "w", "sw", "s", "se", "e", "ne"]
@@ -2381,7 +2382,11 @@ class Workbench(tk.Tk):
         else:
             self._scaling_factor = float(scaling)
 
-        MAC_SCALING_MODIFIER = 1.7
+        if get_tk_version_str().startswith("8."):
+            MAC_SCALING_MODIFIER = 1.7
+        else:
+            MAC_SCALING_MODIFIER = 1.0
+
         if running_on_mac_os():
             self._scaling_factor *= MAC_SCALING_MODIFIER
 
